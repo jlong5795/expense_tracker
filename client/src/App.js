@@ -1,13 +1,13 @@
 import './App.css';
 
 // component imports
-import Expense from './components/Expense'
+import ExpenseList from './components/ExpenseList'
 
 function App() {
   return (
     <div className="App">
       Placeholder
-      <Expense />
+      <ExpenseList />
     </div>
   );
 }
