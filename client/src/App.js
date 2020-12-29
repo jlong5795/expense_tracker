@@ -6,7 +6,7 @@ import ExpenseList from './components/ExpenseList'
 function App() {
   return (
     <div className="App">
-      Placeholder
+      <h1>Welcome to My Expense Tracker</h1>
       <ExpenseList />
     </div>
   );

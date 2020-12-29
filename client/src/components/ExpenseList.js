@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 
+import Button from "react-bootstrap/Button";
+
 // component imports
-import Expense from './Expense';
-import ExpenseModal from './ExpenseModal';
+import ExpenseModal from "./ExpenseModal";
 
 const expenseList = [
   {
@@ -29,13 +30,52 @@ const ExpenseList = () => {
     setExpenses(expenseList);
   }, []);
 
+  const removeExpense = (id) => {
+    let newExpenses = expenses.filter((expense) => expense.id !== id);
+    return setExpenses(newExpenses);
+  };
+
+  const createExpense = () => {
+    // create new expense in array
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    const yyyy = today.getFullYear();
+  
+    if (dd < 10) {
+      dd = `0${dd}`;
+    }
+  
+    if (mm < 10) {
+      mm = `0${mm}`;
+    }
+  
+    today = `${yyyy}/${mm}/${dd}`;
+
+    const newExpense = {
+      title: "",
+      amount: 0,
+      created_at: today,
+      tags: [],
+    }
+
+    return setExpenses([...expenses, newExpense])
+    // open empty modal
+    // save or cancel
+  }
+
   return (
     <div>
       {expenses.map((expense) => {
         return (
-          <Expense expense={expense} />
+          <ExpenseModal
+            expense={expense}
+            key={`expense=${expense.id}`}
+            removeExpense={removeExpense}
+          />
         );
       })}
+      <Button onClick={createExpense}>Add Expense</Button>
     </div>
   );
 };
