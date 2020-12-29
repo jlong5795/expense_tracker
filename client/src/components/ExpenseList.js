@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 
+// component imports
+import Expense from './Expense';
+import ExpenseModal from './ExpenseModal';
+
 const expenseList = [
   {
     id: 1,
@@ -29,13 +33,7 @@ const ExpenseList = () => {
     <div>
       {expenses.map((expense) => {
         return (
-          <div key={expense.id}>
-            <p>{expense.title}</p>
-            <p>${expense.amount}</p>
-            {expense.tags.map((tag, index) => {
-              return <p key={`${tag}-${index}`}>{tag}</p>;
-            })}
-          </div>
+          <Expense expense={expense} />
         );
       })}
     </div>
