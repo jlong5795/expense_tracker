@@ -1,8 +1,13 @@
+// dependencies
 import { useState, useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
-import { Modal } from "react-bootstrap";
-
+// components
 import Expense from "./Expense";
+
+// styles
+import './ExpenseModal.css'
 
 const ExpenseModal = ({ expense, removeExpense }) => {
   let today = new Date();
@@ -74,57 +79,74 @@ const ExpenseModal = ({ expense, removeExpense }) => {
     return setOpen(!open);
   };
 
+  const removeTags = (index) => {
+    const newTags = expense.tags.splice(index, 1);
+
+    return setTags(newTags);
+  };
+
   return (
     <div>
-      <Modal show={open}>
+      <Modal show={open} className='modal-container'>
         <Modal.Header>
           <Modal.Title>Modify Expense</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <form>
-          <label htmlFor="title">
-            Title:
-            <input
-              name="title"
-              type="text"
-              value={form.title}
-              onChange={handleChanges}
-            />
-          </label>
-          <label htmlFor="amount">
-            Amount:
-            <input
-              name="amount"
-              type="number"
-              value={form.amount}
-              onChange={handleChanges}
-              step="0.01"
-            />
-          </label>
-          <p>Date Created: {form.created_at}</p>
-          <label htmlFor="tags">
-            Tags:
-            <input
-              name="tags"
-              type="text"
-              value={tags}
-              onChange={handleTagChanges}
-            />
-          </label>
-          <button onClick={onTagSubmit}>Add Tags</button>
-          <button onClick={onSubmit} disabled={disabled}>
-            Submit
-          </button>
-          <button>Cancel</button>
-        </form>
+          <form>
+            <label htmlFor="title">
+              Title:
+              <input
+                name="title"
+                type="text"
+                value={form.title}
+                onChange={handleChanges}
+              />
+            </label>
+            <label htmlFor="amount">
+              Amount:
+              <input
+                name="amount"
+                type="number"
+                value={form.amount}
+                onChange={handleChanges}
+                step="0.01"
+              />
+            </label>
+            <p>Date Created: {form.created_at}</p>
+            <label htmlFor="tags">
+              Tags:
+              <input
+                name="tags"
+                type="text"
+                value={tags}
+                onChange={handleTagChanges}
+              />
+            </label>
+            <Button onClick={onTagSubmit} className='button tag-submit'>Add Tags</Button>
+            <div className='form-buttons-container'>
+            <Button onClick={onSubmit} disabled={disabled} className='button form-submit'>
+              Submit
+            </Button>
+            <Button className='button form-cancel'>Cancel</Button>
+            </div>
+          </form>
+          <div>
+            {expense.tags.map((tag, index) => {
+              return (
+                <p key={tag}>
+                  {tag}
+                  <span onClick={() => removeTags(index)}> x</span>
+                </p>
+              );
+            })}
+          </div>
         </Modal.Body>
-        {/*TODO: Create map to display tags and a method to remove them */}
       </Modal>
       <Expense
-          expense={expense}
-          toggle={toggle}
-          removeExpense={removeExpense}
-        />
+        expense={expense}
+        toggle={toggle}
+        removeExpense={removeExpense}
+      />
     </div>
   );
 };

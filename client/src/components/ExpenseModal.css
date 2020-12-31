@@ -1,0 +1,13 @@
+.modal-container {
+    padding: 5rem;
+}
+
+input {
+    margin: 0 auto;   
+}
+
+.form-buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: .75rem;
+}

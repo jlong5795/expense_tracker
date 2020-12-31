@@ -2,22 +2,19 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 const Expense = ({ expense, toggle, removeExpense }) => {
-
   const deleteExpense = (id) => {
-    return removeExpense(id)
-  }
+    return removeExpense(id);
+  };
 
-  let tagString = '';
+  let tagString = "";
 
   expense.tags.forEach((tag, index) => {
     if (index < expense.tags.length - 1) {
-      return tagString += `${tag}, `
+      return (tagString += `${tag}, `);
     } else {
-      return tagString += tag
+      return (tagString += tag);
     }
-    
-    
-  })
+  });
 
   return (
     <Card key={expense.id}>
@@ -25,14 +22,7 @@ const Expense = ({ expense, toggle, removeExpense }) => {
       <Card.Body>
         <Card.Text>
           <p>Amount: ${expense.amount}</p>
-          Tags: {tagString}
-          {/* {expense.tags.map((tag, index) => {
-            return (
-              <li key={`${tag}-${index}`}>
-                {tag}
-              </li>
-            );
-          })} */}
+          <p>Tags: {tagString}</p>
         </Card.Text>
         <Button onClick={() => toggle()}>Edit</Button>
         <Button onClick={() => deleteExpense(expense.id)}>Delete</Button>
